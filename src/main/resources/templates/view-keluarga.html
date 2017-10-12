@@ -8,11 +8,11 @@
        	<h3 th:text="'NKK = ' + ${keluarga.nkk}">nkk</h3>
        	<h3 th:text="'Alamat = ' + ${keluarga.alamat}">alamat</h3>
        	<h3 th:text="'RT/RW = ' + ${keluarga.rt} + '/' + ${keluarga.rw}">rt rw</h3>
-       	<h3 th:text="'Kelurahan/Desa = ' + ${keluarga.kelurahan}">kelurahank</h3>
+       	<h3 th:text="'Kelurahan/Desa = ' + ${keluarga.kelurahan}">kelurahan</h3>
        	<h3 th:text="'Kecamatan = ' + ${keluarga.kecamatan}">kecamatan</h3>
        	<h3 th:text="'Kota = ' + ${keluarga.kota}">NIK penduduk</h3>
-       	<ul th:each = "anggota,iterationStatus: ${keluarga.anggota}">
-			<li th:text = "${anggota.nama} + '-' + ${anggota.nik}" >
+       	<ul th:each = "count,iterationStatus: ${anggota}">
+			<li th:text = "${count.nama} + '-' + ${count.nik}" >
 				nama anggota - nik
 			</li>
 		</ul>

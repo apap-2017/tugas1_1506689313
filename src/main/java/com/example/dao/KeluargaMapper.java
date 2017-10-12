@@ -25,14 +25,9 @@ public interface KeluargaMapper {
     		@Result(property="kelurahan", column="nama_kelurahan"),
     		@Result(property="kecamatan", column="nama_kecamatan"),
     		@Result(property="kota", column="nama_kota"),
-    		@Result(property="anggota", column="id",
-    		javaType = List.class,
-    		many = @Many(select = "selectAnggotaKeluarga"))
+    		@Result(property="idKeluarga", column="id")
     })
     KeluargaModel selectKeluargabyNKK(@Param("nkk") String nkk);
-    
-    @Select("select * from keluarga, penduduk where penduduk.id_keluarga = keluarga.id")
-    PendudukModel selectAnggotaKeluarga(@Param("idKeluarga") String idKeluarga);
 
     @Select("select * from keluarga, kelurahan, kecamatan, kota where keluarga.id = #{idKeluarga} and id_kelurahan = kelurahan.id and id_kecamatan = kecamatan.id and id_kota = kota.id")
     @Results(value = {
@@ -47,8 +42,5 @@ public interface KeluargaMapper {
     		@Result(property="kota", column="nama_kota")
     })
     KeluargaModel selectKeluargabyID(@Param("idKeluarga") String idKeluarga);
-    
-    
-    
     
 }

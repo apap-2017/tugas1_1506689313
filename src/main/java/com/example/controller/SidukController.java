@@ -17,7 +17,7 @@ import com.example.service.KeluargaService;
 import com.example.service.PendudukService;
 
 @Controller
-public class PendudukController
+public class SidukController
 {
     @Autowired
     PendudukService pendudukDAO;
@@ -51,9 +51,11 @@ public class PendudukController
     @RequestMapping(value="/keluarga")
     public String viewKeluarga(Model model, @RequestParam(value="nkk") String nkk) {
     	KeluargaModel keluarga = keluargaDAO.selectKeluargabyNKK(nkk);
+    	List<PendudukModel> anggota_keluarga = pendudukDAO.selectAnggotaKeluarga(keluarga.getIdKeluarga());
     	
     	if(keluarga != null) {
     		model.addAttribute("keluarga", keluarga);
+    		model.addAttribute("anggota", anggota_keluarga);
     		return "view-keluarga";
     	}
     	else {
@@ -61,5 +63,4 @@ public class PendudukController
     		return "not-found";
     	}
     }
-
 }

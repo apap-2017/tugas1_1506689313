@@ -33,6 +33,7 @@ public interface PendudukMapper
     })
     PendudukModel selectPenduduk (@Param("nik") String nik);
     
-
+    @Select("select * from keluarga, penduduk where penduduk.id_keluarga = keluarga.id and #{idKeluarga} = penduduk.id_keluarga")
+    List<PendudukModel> selectAnggotaKeluarga(int idKeluarga);
 
 }

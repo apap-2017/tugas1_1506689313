@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class PendudukServiceDatabase implements PendudukService
     {
         log.info ("select penduduk with nik {}", nik);
         return pendudukMapper.selectPenduduk(nik);
+    }
+    
+    @Override 
+    public List<PendudukModel> selectAnggotaKeluarga(int idKeluarga){
+    	log.info("select anggota keluarga of keluarga with id {}", idKeluarga);
+    	return pendudukMapper.selectAnggotaKeluarga(idKeluarga);
     }
 
 }

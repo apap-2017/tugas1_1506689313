@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.model.PendudukModel;
@@ -8,5 +10,7 @@ import com.example.model.PendudukModel;
 public interface PendudukService
 {
     PendudukModel selectPenduduk (String nik);
+    
+    List<PendudukModel> selectAnggotaKeluarga(int idKeluarga);
 
 }
