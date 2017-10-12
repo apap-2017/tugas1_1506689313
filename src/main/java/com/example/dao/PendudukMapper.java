@@ -15,7 +15,7 @@ import com.example.model.PendudukModel;
 @Mapper
 public interface PendudukMapper
 {
-    @Select("select * from penduduk where nik = #{nik}")
+    @Select("select * from penduduk where nik = #{nik} ")
     @Results(value = {
     	@Result(property="nik", column="nik"),
     	@Result(property="nama", column="nama"),
@@ -33,10 +33,6 @@ public interface PendudukMapper
     })
     PendudukModel selectPenduduk (@Param("nik") String nik);
     
-//	@Select("SELECT * " 
-//			+ "FROM penduduk " 
-//			+ "WHERE penduduk.nik = #{nik}")
-//	PendudukModel filterbyNIK(@Param("nik") String nik);
 
 
 }

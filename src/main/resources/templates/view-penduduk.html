@@ -10,9 +10,9 @@
        	<h3 th:text="'Tempat/Tanggal Lahir = ' + ${penduduk.tempatLahir} + ', ' + ${penduduk.tanggalLahir}">TTL penduduk</h3>
     	<h3 th:text="'Alamat = ' + ${keluarga.alamat}">alamat</h3>
     	<h3 th:text="'RT/RW = ' + ${keluarga.rt} + '/' + ${keluarga.rw}">rt/rw</h3>
-    	<!-- <h3 th:text="'Kelurahan/Desa = ' + ${keluarga.kelurahan}">kelurahan</h3> -->
-    	<h3 th:text="'Kecamatan = ' + ${penduduk.kecamatan}">kecamatank</h3>
-		<h3 th:text="'Kota = ' + ${penduduk.kota}">kota</h3>
+    	<h3 th:text="'Kelurahan/Desa = ' + ${keluarga.kelurahan}">kelurahan</h3>
+    	<h3 th:text="'Kecamatan = ' + ${keluarga.kecamatan}">kecamatank</h3>
+		<h3 th:text="'Kota = ' + ${keluarga.kota}">kota</h3>
 		<h3 th:text="'Golongan Darah = ' + ${penduduk.goldar}">goldar</h3>
 		<h3 th:text="'Agama = ' + ${penduduk.agama}">agama</h3>
 		<h3 th:text="'Status Perkawinan = ' + ${penduduk.statusKawin}">status perkawinan</h3>
@@ -27,5 +27,6 @@
 			<h3 th:case="'0'">Hidup</h3>
 			<h3 th:case="'1'">Mati</h3>
 		</span>
+		<button>Nonaktifkan</button>
     </body>
 </html>

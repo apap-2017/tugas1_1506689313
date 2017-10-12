@@ -36,7 +36,7 @@ public class PendudukController
 	public String viewPenduduk(Model model, @RequestParam(value = "nik") String nik) {
 		PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
 		KeluargaModel keluarga = keluargaDAO.selectKeluargabyID(penduduk.getIdKeluarga());
-
+				
 		if (penduduk != null) {
 			model.addAttribute("penduduk", penduduk);
 			model.addAttribute("keluarga", keluarga);
