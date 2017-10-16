@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragment :: header">
+    </head>
+    <body>
+    	<nav th:replace="fragment :: navbar">
+		</nav>
+		
+		<div class="container-fluid">
+			<h3>Sukses!</h3>
+			<h4 th:text="${nik_kematian} != null ? 'Status kematian penduduk dengan NIK ' + ${nik_kematian} + ' berhasil dinonaktifkan'"></h4>
+		</div>
+    </body>
+</html>

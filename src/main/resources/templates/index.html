@@ -1,36 +1,68 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<head>
 
-<title>SIDUK DKI</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment :: header">
 </head>
 
 <body>
-
-	<h1 class="page-header">SIDUK DKI</h1>
-
-	<form action="/penduduk" method="get">
-		<label>Lihat Data Penduduk Berdasarkan NIK</label>
-		<div>
-			<input type="text" name="nik" />
+	<nav class="navbar navbar-inverse" th:replace="fragment :: navbar">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Siduk DKI</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li class="active"><a href="/">Home</a></li>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tambah<span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="/penduduk/tambah">Penduduk</a></li>
+		          <li><a href="/keluarga/tambah">Keluarga</a></li>
+		        </ul>
+		      </li>
+		      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Ubah<span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		          <li><a href="#">Penduduk</a></li>
+		          <li><a href="#">Keluarga</a></li>
+		        </ul>
+		      </li>
+		    </ul>
 		</div>
-		<div>
-			<button type="submit" name="action" value="searchnik">Search</button>
-		</div>
-	</form>
+	</nav>
 	
-	<form action="/keluarga" method="get">
-		<label>Lihat Data Penduduk Berdasarkan NKK</label>
-		<div>
-			<input type="text" name="nkk" />
+	<div class="container-fluid">
+		<h1 class="page-header">Sistem Informasi Kependudukan Online Provinsi DKI Jakarta</h1>
+		
+		<div class="row">
+			<div class="container-fluid col-sm-4">
+				<form action="/penduduk" method="get">
+					<label>Lihat Data Penduduk Berdasarkan NIK</label>
+					<p/>Masukkan Nomor Induk Kependudukan
+					<div class="form-group">
+						<input class="form-control" type="text" name="nik" />
+					</div>
+					<div>
+						<button class="btn btn-primary" type="submit" name="action" value="searchnik">Search</button>
+					</div>
+				</form>
+			</div>
 		</div>
-		<div>
-			<button type="submit" name="action" value="searchnkk">Search </button>
+		
+		<hr/>
+		
+		<div class="row">
+			<div class="container-fluid col-sm-4">
+				<form action="/keluarga" method="get">
+					<label>Lihat Data Penduduk Berdasarkan NKK</label>
+					<p/>Masukkan Nomor Kartu Keluarga
+					<div class="form-group">
+						<input class="form-control" type="text" name="nkk" />
+					</div>
+					<div>
+						<button class="btn btn-primary" type="submit" name="action" value="searchnkk">Search </button>
+					</div>
+				</form>
+			</div>
 		</div>
-	</form>
-
+	</div>
 </body>
 
 </html>

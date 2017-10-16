@@ -1,13 +1,10 @@
 package com.example.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.KeluargaMapper;
 import com.example.model.KeluargaModel;
-import com.example.model.PendudukModel;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +17,7 @@ public class KeluargaServiceDatabase implements KeluargaService{
     @Override
     public KeluargaModel selectKeluargabyNKK (String nkk){
         log.info ("select keluarga with nkk {}", nkk);
+        log.info("is_tidak_berlaku = {}", keluargaMapper.selectKeluargabyNKK(nkk).getIsTidakBerlaku());
         return keluargaMapper.selectKeluargabyNKK(nkk);
     }
     
@@ -27,6 +25,12 @@ public class KeluargaServiceDatabase implements KeluargaService{
     public KeluargaModel selectKeluargabyID(String idKeluarga) {
     	log.info("select keluarga with id {}", idKeluarga);
     	return keluargaMapper.selectKeluargabyID(idKeluarga);
+    }
+    
+    @Override
+    public void updateStatusBerlaku(int id) {
+    	log.info("keluarga with id {} is no longer active", id);
+    	keluargaMapper.updateStatusBerlaku(id);
     }
     
 

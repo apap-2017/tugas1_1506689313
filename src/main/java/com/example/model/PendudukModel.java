@@ -1,7 +1,5 @@
 package com.example.model;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +27,7 @@ public class PendudukModel
     private String statusKawin;
     private String pekerjaan;
     private String kewarganegaraan;
-    private String statusKematian;
+    private int statusKematian;
     
 //    private List<CourseModel> courses;
 }

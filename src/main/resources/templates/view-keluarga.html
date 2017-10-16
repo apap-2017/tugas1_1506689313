@@ -1,20 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>View Keluarga by NKK</title>
+    <head th:replace="fragment :: header">
     </head>
     <body>
-    	<h3 th:text="'Lihat Data Keluarga - ' + ${keluarga.nkk} "></h3>
-       	<h3 th:text="'NKK = ' + ${keluarga.nkk}">nkk</h3>
-       	<h3 th:text="'Alamat = ' + ${keluarga.alamat}">alamat</h3>
-       	<h3 th:text="'RT/RW = ' + ${keluarga.rt} + '/' + ${keluarga.rw}">rt rw</h3>
-       	<h3 th:text="'Kelurahan/Desa = ' + ${keluarga.kelurahan}">kelurahan</h3>
-       	<h3 th:text="'Kecamatan = ' + ${keluarga.kecamatan}">kecamatan</h3>
-       	<h3 th:text="'Kota = ' + ${keluarga.kota}">NIK penduduk</h3>
-       	<ul th:each = "count,iterationStatus: ${anggota}">
-			<li th:text = "${count.nama} + '-' + ${count.nik}" >
-				nama anggota - nik
-			</li>
-		</ul>
-    </body>
+    	<nav th:replace="fragment :: navbar"></nav>
+    
+	<div class="container-fluid">
+		<h3 th:text="'Lihat Data Keluarga - ' + ${keluarga.nkk}"></h3>
+		<div class="container-fluid col-sm-4">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td>NKK</td>
+						<td th:text="${keluarga.nkk}"></td>
+					</tr>
+					<tr>
+						<td>Alamat</td>
+						<td th:text="${keluarga.alamat}"></td>
+					</tr>
+					<tr>
+						<td>RT/RW</td>
+						<td th:text="${keluarga.rt} + '/' + ${keluarga.rw}"></td>
+					</tr>
+					<tr>
+						<td>Kelurahan/Desa</td>
+						<td th:text="${keluarga.kelurahan}"></td>
+					</tr>
+					<tr>
+						<td>Kecamatan</td>
+						<td th:text="${keluarga.kecamatan}"></td>
+					</tr>
+					<tr>
+						<td>Kota</td>
+						<td th:text="${keluarga.kota}"></td>
+					</tr>
+					<tr>
+						<td>Status KK</td>
+						<td th:text="${keluarga.isTidakBerlaku == '0' ? 'Berlaku' : 'Tidak berlaku'}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<hr/>
+
+	<div class="container-fluid">
+		<table class="table">
+			<h4>Anggota Keluarga</h4>
+			<thead>
+				<tr>
+					<td>No</td>
+			       	<td>Nama</td>
+			       	<td>NIK</td>
+			       	<td>Jenis Kelamin</td>
+			       	<td>Tempat Lahir</td>
+			       	<td>Tanggal Lahir</td>
+			       	<td>Agama</td>
+			       	<td>Pekerjaan</td>
+			       	<td>Status Perkawinan</td>
+			       	<td>Status dalam Keluarga</td>
+			       	<td>Kewarganegaraan</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="anggota,iterationStatus: ${anggota}">
+		            <td th:text="${iterationStatus.count}">No. 1</td>
+			       	<td th:text="${anggota.nama}">Nama</td>
+			       	<td th:text="${anggota.nik}">NIK</td>
+			       	<td th:text="${anggota.jenisKelamin == '0'} ? 'Laki-laki' : 'Perempuan'">Jenis Kelamin</td>
+			       	<td th:text="${anggota.tempatLahir}">Tempat Lahir</td>
+			       	<td th:text="${anggota.tanggalLahir}">Tanggal Lahir</td>
+			       	<td th:text="${anggota.agama}">Agama</td>
+			       	<td th:text="${anggota.pekerjaan}">Pekerjaan</td>
+			       	<td th:text="${anggota.statusKawin}">Status Perkawinan</td>
+			       	<td th:text="${anggota.statusDalamKeluarga}">Status dalam Keluarga</td>
+			       	<td th:text="${anggota.kewarganegaraan} == 1 ? 'WNI' : 'WNA'">Kewarganegaraan</td>
+		       	</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
 </html>

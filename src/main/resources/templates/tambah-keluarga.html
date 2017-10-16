@@ -1,12 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-	<head>
-	<title>Tambah Keluarga</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<head th:replace="fragment :: header">
 	</head>
 	
 	<body>
+		<nav th:replace="fragment :: navbar"></nav>
 		<h1 class="page-header">Tambah Keluarga</h1>
 	
 		<form action="/keluarga/tambah" method="post">
