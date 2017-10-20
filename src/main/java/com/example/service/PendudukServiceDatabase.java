@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.PendudukMapper;
+import com.example.model.KeluargaModel;
 import com.example.model.PendudukModel;
 
 import com.example.dao.KeluargaMapper;
@@ -57,10 +58,49 @@ public class PendudukServiceDatabase implements PendudukService
     	pendudukMapper.updateStatusKematian(penduduk.getNik());
     }
     
-//    @Override
-//    public PendudukModel addPenduduk(PendudukModel penduduk) {
-//    	log.info("add penduduk");
-//    }
-
+    @Override
+    public PendudukModel addPenduduk(PendudukModel penduduk) {
+    	log.info("add penduduk with id keluarga {}", penduduk.getIdKeluarga());
     
+    	penduduk.setNik(generateNIK(penduduk));
+    	penduduk.setStatusKematian(0);
+    	pendudukMapper.addPenduduk(penduduk);
+    	
+    	return penduduk;
+    }
+
+    private String generateNIK(PendudukModel penduduk) {
+    	String nik = "";
+    	
+    	KeluargaModel keluarga = keluargaMapper.selectKeluargabyID(penduduk.getIdKeluarga());
+    	
+    	String[] splitTanggal = penduduk.getTanggalLahir().split("-");
+    	//6 digit pertama bisa ambil dari nomor kk 
+    	nik += keluarga.getNkk().substring(0,6);
+    	//tanggal*40 
+    	nik += (Integer.parseInt(splitTanggal[2]) + Integer.parseInt(penduduk.getJenisKelamin())*40);
+    	//bulan + tahun
+    	nik += splitTanggal[1] + splitTanggal[0].substring(2);
+    	
+    	PendudukModel pendudukDouble = pendudukMapper.getNIKBefore(nik);
+    	
+    	//no duplicate
+    	if(pendudukDouble == null) {
+    		nik+= "0001";
+    		log.info("NIK {} is generated", nik);
+    	}
+    	else {
+    		log.info("nik yang mirip {}", pendudukDouble.getNik());
+    		long nikDouble = Long.parseLong(pendudukDouble.getNik()) + 1;
+    		nik = String.valueOf(nikDouble);
+    		log.info("NIK {} is generated", nik);
+    	}
+    	return nik;
+    }
+    
+    @Override
+    public void updatePenduduk(PendudukModel penduduk) {
+    	log.info("update penduduk with nik {}", penduduk.getNik());
+    	pendudukMapper.updatePenduduk(penduduk);
+    }
 }

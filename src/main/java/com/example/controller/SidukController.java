@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,5 +72,33 @@ public class SidukController
     		model.addAttribute("nkk", nkk);
     		return "not-found";
     	}
+    }
+    
+    @RequestMapping("/penduduk/tambah")
+    public String addPenduduk(Model model) {
+    	
+    	return "tambah-penduduk";
+    }
+    
+    @RequestMapping(value="/penduduk/tambah", method = RequestMethod.POST)
+    public String addPenduduk(Model model, @ModelAttribute PendudukModel penduduk) {
+    	PendudukModel new_penduduk = pendudukDAO.addPenduduk(penduduk);
+    	
+    	if(new_penduduk != null) {
+    		model.addAttribute("nik_tambah", new_penduduk.getNik());
+    		return "success";
+    	}
+    	else {
+    		model.addAttribute("id_keluarga", penduduk.getIdKeluarga());
+    		return "not-found";
+    	}    	
+    }
+    
+    @RequestMapping("penduduk/ubah/{nik}")
+    public String updatePenduduk(Model model, @PathVariable(value="nik") String nik) {
+    	PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
+    	model.addAttribute("penduduk", penduduk);
+    	
+    	return "update-penduduk";
     }
 }

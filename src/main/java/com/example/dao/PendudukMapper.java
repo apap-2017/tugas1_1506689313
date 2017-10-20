@@ -2,6 +2,7 @@ package com.example.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -52,4 +53,16 @@ public interface PendudukMapper
     
    @Update("UPDATE penduduk SET is_wafat = 1 WHERE nik = #{nik}")
    void updateStatusKematian(@Param("nik") String nik);
+   
+   @Insert("insert into penduduk (nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, is_wni, id_keluarga, agama, pekerjaan, status_perkawinan, status_dalam_keluarga, golongan_darah, is_wafat) "
+   		+ "values ('${nik}', '${nama}', '${tempatLahir}', '${tanggalLahir}', '${jenisKelamin}', '${kewarganegaraan}', '${idKeluarga}', '${agama}', '${pekerjaan}', '${statusKawin}', '${statusDalamKeluarga}', '${goldar}', '${statusKematian}') ")
+   void addPenduduk(PendudukModel penduduk);
+
+   @Select("select * from penduduk where nik LIKE CONCAT(#{nik},'%') order by nik desc limit 1")
+   PendudukModel getNIKBefore(String nik);
+   
+   @Update("update penduduk set nik = #{nik}, nama = #{nama}, tempat_lahir = #{tempat_lahir}, tanggal_lahir = #{tanggal_lahir}, "
+			+ "jenis_kelamin = #{jenis_kelamin}, is_wni = #{is_wni}, golongan_darah = #{golongan_darah}, is_wafat = #{is_wafat} "
+			+ "where id = #{id}")
+   void updatePenduduk (PendudukModel penduduk);
 }

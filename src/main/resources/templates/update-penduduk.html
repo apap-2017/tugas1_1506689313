@@ -8,15 +8,15 @@
     	<nav th:replace="fragment :: navbar"></nav>
     	
     	<div class="container-fluid col-sm-4">
-    		<h3>Tambah Penduduk</h3>
-    		<form action="/penduduk/tambah" method="post" th:object="${penduduk}"> <!--  -->
+    		<h3>Ubah Penduduk</h3>
+    		<form action="penduduk/tambah/submit" method="post" th:object="${penduduk}">
     			<div class="form-group">
     				<label for="nama">Nama</label>
-    				<input class="form-control" type="text" name="nama" required="true" ></input> <!-- th:field="*{nama}" --> 
+    				<input class="form-control" type="text" name="nama" required="true"></input> <!-- th:field="${nama}" --> 
     			</div>
     			<div class="form-group">
-    				<label for="statusDalamKeluarga">Status Dalam Keluarga</label>
-    				<select class="form-control" type="text" name="statusDalamKeluarga" required="true" > <!-- th:value="*{status_dalam_keluarga}" --> 
+    				<label for="status_dalam_keluarga">Status Dalam Keluarga</label>
+    				<select class="form-control" type="text" name="status_dalam_keluarga" required="true"> <!-- th:field="${nama}" --> 
     				<option selected="true" disabled="disabled" value=""></option>
     					<option>Kepala Keluarga</option>
     					<option>Istri</option>
@@ -24,16 +24,16 @@
     				</select>
     			</div>
     			<div class="form-group">
-    				<label for="tempatLahir">Tempat Lahir</label>
-    				<input class="form-control" type="text" name="tempatLahir" required="true" ></input> <!-- th:value="*{tempat_lahir}" --> 
+    				<label for="tempat_lahir">Tempat Lahir</label>
+    				<input class="form-control" type="text" name="tempat_lahir" required="true"></input> <!-- th:field="${nama}" --> 
     			</div>
     			<div class="form-group">
-    				<label for="tanggalLahir">Tanggal Lahir (format YYYY-MM-DD)</label>
-    				<input class="form-control" type="text" name="tanggalLahir" required="true" ></input> <!-- th:value="*{tanggal_lahir}" --> 
+    				<label for="tanggal_lahir">Tanggal Lahir (format YYYY-MM-DD)</label>
+    				<input class="form-control" type="text" name="tanggal_lahir" required="true"></input> <!-- th:field="${nama}" --> 
     			</div>
     			<div class="form-group">
-    				<label for="goldar">Golongan Darah</label>
-    				<select class="form-control" type="text" name="goldar" required="true" > <!-- th:value="*{golongan_darah}" --> 
+    				<label for="golongan_darah">Golongan Darah</label>
+    				<select class="form-control" type="text" name="golongan darah" required="true"> <!-- th:field="${nama}" --> 
     				<option selected="true" disabled="disabled" value=""></option>
     					<option>A+</option>
     					<option>A-</option>
@@ -47,11 +47,11 @@
     			</div>
     			<div class="form-group">
     				<label for="agama">Agama</label>
-    				<input class="form-control" type="text" name="agama" required="true" ></input> <!-- th:value="*{agama}" --> 
+    				<input class="form-control" type="text" name="agama" required="true"></input> <!-- th:field="${nama}" --> 
     			</div>
     			<div class="form-group">
-    				<label for="statusKawin">Status Perkawinan</label>
-    				<select class="form-control" type="text" name="statusKawin" required="true" > <!-- th:value="*{status_perkawinan}" --> 
+    				<label for="status_perkawinan">Status Perkawinan</label>
+    				<select class="form-control" type="text" name="status_perkawinan" required="true"> <!-- th:field="${nama}" --> 
     				<option selected="true" disabled="disabled" value=""></option>
     					<option>Kawin</option>
     					<option>Belum Kawin</option>
@@ -59,35 +59,35 @@
     			</div>
     			<div class="form-group">
     				<label for="pekerjaan">Pekerjaan</label>
-    				<input class="form-control" type="text" name="pekerjaan" required="true" ></input> <!-- th:value="*{pekerjaan}" --> 
+    				<input class="form-control" type="text" name="pekerjaan" required="true"></input> <!-- th:field="${nama}" --> 
     			</div>
     			<div class="form-group">
     				<label for="kewarganegaraan">Kewarganegaraan</label>
-    				<select class="form-control" type="text" name="kewarganegaraan" required="true" > <!-- th:value="*{is_wni}" --> 
+    				<select class="form-control" type="text" name="kewarganegaraan" required="true"> <!-- th:field="${nama}" --> 
     				<option selected="true" disabled="disabled" value=""></option> <!-- th:value=" '' " -->
 	    				<option th:value="'1'">WNI</option>
 	    				<option th:value="'0'">WNA</option>
     				</select>
     			</div>
     			<div class="form-group">
-    				<label for="statusKematian">Status Kematian</label>
-    				<select class="form-control" type="text" name="statusKematian" required="true" > <!-- th:value="*{is_wafat}" --> 
+    				<label for="status_kematian">Status Kematian</label>
+    				<select class="form-control" type="text" name="status_kematian" required="true"> <!-- th:field="${nama}" --> 
     				<option selected="true" disabled="disabled" value=""></option> <!-- th:value=" '' " -->
 	    				<option th:value="'1'">Wafat</option>
 	    				<option th:value="'0'">Hidup</option>
     				</select>
     			</div>
     			<div class="form-group">
-    				<label for="jenisKelamin">Jenis Kelamin</label>
-    				<select class="form-control" type="text" name="jenisKelamin" required="true"  > <!-- th:value="*{jenis_kelamin}" --> 
+    				<label for="jenis_kelamin">Jenis Kelamin</label>
+    				<select class="form-control" type="text" name="jenis_kelamin" required="true"> <!-- th:field="${nama}" --> 
     				<option selected="true" disabled="disabled" value=""></option> <!-- th:value=" '' " -->
 	    				<option th:value="'1'">Perempuan</option>
 	    				<option th:value="'0'">Laki-laki</option>
     				</select>
     			</div>
     			<div class="form-group">
-    				<label for="idKeluarga">ID Keluarga</label>
-    				<input class="form-control" type="text" name="idKeluarga" required="true" ></input> <!-- th:value="*{id_keluarga}" --> 
+    				<label for="id_keluarga">ID Keluarga</label>
+    				<input class="form-control" type="text" name="id_keluarga" required="true"></input> <!-- th:field="${nama}" --> 
     			</div>
     			
     			<button name="action" type="submit" class="btn btn-primary">Simpan Penduduk</button>

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PendudukModel 
 {
+	private String id;
     private String nik;
     private String nama;
     private String idKeluarga;
@@ -28,6 +29,5 @@ public class PendudukModel
     private String pekerjaan;
     private String kewarganegaraan;
     private int statusKematian;
-    
-//    private List<CourseModel> courses;
+   
 }

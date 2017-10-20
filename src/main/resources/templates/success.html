@@ -9,6 +9,10 @@
 		<div class="container-fluid">
 			<h3>Sukses!</h3>
 			<h4 th:text="${nik_kematian} != null ? 'Status kematian penduduk dengan NIK ' + ${nik_kematian} + ' berhasil dinonaktifkan'"></h4>
+			<h4 th:text="${nik_tambah} != null ? 'Penduduk dengan NIK ' + ${nik_tambah} + ' berhasil ditambahkan'"></h4>
+			<h4 th:text="${nik_lama} != null ? 'Penduduk dengan NIK ' + ${nik_lama} + ' berhasil diubah'"></h4>
+			<h4 th:text="${nkk_tambah} != null ? 'Keluarga dengan NKK ' + ${nkk_tambah} + ' berhasil ditambahkan'"></h4>
+			<h4 th:text="${nkk_lama} != null ? 'Keluarga dengan NKK ' + ${nkk_lama} + ' berhasil diubah'"></h4>
 		</div>
     </body>
 </html>
