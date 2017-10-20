@@ -61,8 +61,8 @@ public interface PendudukMapper
    @Select("select * from penduduk where nik LIKE CONCAT(#{nik},'%') order by nik desc limit 1")
    PendudukModel getNIKBefore(String nik);
    
-   @Update("update penduduk set nik = #{nik}, nama = #{nama}, tempat_lahir = #{tempat_lahir}, tanggal_lahir = #{tanggal_lahir}, "
-			+ "jenis_kelamin = #{jenis_kelamin}, is_wni = #{is_wni}, golongan_darah = #{golongan_darah}, is_wafat = #{is_wafat} "
+   @Update("update penduduk set nik = #{nik}, nama = #{nama}, tempat_lahir = #{tempatLahir}, tanggal_lahir = #{tanggalLahir}, "
+			+ "jenis_kelamin = #{jenisKelamin}, is_wni = #{kewarganegaraan}, golongan_darah = #{goldar}, is_wafat = #{statusKematian} "
 			+ "where id = #{id}")
-   void updatePenduduk (PendudukModel penduduk);
+   void updatePenduduk (@Param("penduduk") PendudukModel penduduk);
 }

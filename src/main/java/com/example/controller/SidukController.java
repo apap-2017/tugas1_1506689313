@@ -97,8 +97,30 @@ public class SidukController
     @RequestMapping("penduduk/ubah/{nik}")
     public String updatePenduduk(Model model, @PathVariable(value="nik") String nik) {
     	PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
-    	model.addAttribute("penduduk", penduduk);
     	
-    	return "update-penduduk";
+    	if(penduduk != null) {
+    		model.addAttribute("penduduk", penduduk);
+    		return "update-penduduk";
+    	}
+    	else {
+    		model.addAttribute("nik", nik);
+    		return "not-found";
+    	}
     }
+    
+    @RequestMapping(value = "penduduk/ubah/{nik}", method = RequestMethod.POST)
+    public String updatePendudukSubmit(Model model, @PathVariable(value="nik") String nik) {
+    	PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
+    	
+    	if(penduduk != null) {
+    		pendudukDAO.updatePenduduk(penduduk);
+    		model.addAttribute("nik_lama", nik);
+    		
+    		return "success";
+    	}
+    	else {
+    		model.addAttribute("nik", nik);
+    		return "not-found";
+    	}
+    }    
 }
