@@ -9,14 +9,14 @@
     	
     	<div class="container-fluid col-sm-4">
     		<h3>Ubah Data Penduduk</h3>
-    		<form th:action=" '/penduduk/ubah/' + ${penduduk.nik}" method="post" th:object="${penduduk}"> 
+    		<form th:action="'/penduduk/ubah/' + ${penduduk.nik}" method="post" th:object="${penduduk}"> 
     			<div class="form-group">
     				<label for="nik">NIK</label>
-    				<input class="form-control" type="text" name="nik" required="true" th:field="*{nik}" th:value="${penduduk.nik}" readonly="readonly"></input> <!--  --> 
+    				<input class="form-control" type="text" name="nik" required="true" th:field="*{nik}" th:value="${penduduk.nik}" readonly="readonly"></input>  
     			</div>
     			<div class="form-group">
     				<label for="nama">Nama</label>
-    				<input class="form-control" type="text" name="nama" required="true" th:value="${penduduk.nama}"></input> <!--  --> 
+    				<input class="form-control" type="text" name="nama" required="true" th:field="*{nama}" th:value="${penduduk.nama}"></input> <!--  --> 
     			</div>
     			<div class="form-group">
     				<label for="statusDalamKeluarga">Status Dalam Keluarga</label>
@@ -29,7 +29,7 @@
     			</div>
     			<div class="form-group">
     				<label for="tempatLahir">Tempat Lahir</label>
-    				<input class="form-control" type="text" name="tempatLahir" required="true" th:value="${penduduk.tempatLahir}"></input> <!--  --> 
+    				<input class="form-control" type="text" name="tempatLahir" required="true" th:field="*{tempatLahir}" th:value="${penduduk.tempatLahir}"></input> <!--  --> 
     			</div>
     			<div class="form-group">
     				<label for="tanggalLahir">Tanggal Lahir (format YYYY-MM-DD)</label>
@@ -38,7 +38,7 @@
     			<div class="form-group">
     				<label for="goldar">Golongan Darah</label>
     				<select class="form-control" type="text" name="goldar" required="true" th:field="*{goldar}"> <!--  --> 
-    				<option selected="true" disabled="disabled" th:value="${penduduk.goldar}"></option>
+    				<option selected="true" th:disabled="disabled" th:value="${penduduk.goldar}" th:text="${penduduk.goldar}"></option>
     					<option th:value="'A+'">A+</option>
 				        <option th:value="'A-'">A-</option>
 				        <option th:value="'B+'">B+</option>
@@ -55,8 +55,8 @@
     			</div>
     			<div class="form-group">
     				<label for="statusKawin">Status Perkawinan</label>
-    				<select class="form-control" type="text" name="statusKawin" required="true" th:field="*{statusKawin}" > <!--  --> 
-    				<option selected="true" disabled="disabled" th:value="${penduduk.statusKawin}"></option>
+    				<select class="form-control" type="text" name="statusKawin" required="true" th:value="*{statusKawin}" > <!--  --> 
+    				<option selected="true" disabled="disabled" th:value="${penduduk.statusKawin}" th:text="${penduduk.statusKawin}"></option>
     					<option th:value="'Kawin'">Kawin</option>
     					<option th:value="'Belum Kawin'">Belum Kawin</option>
     				</select>
@@ -67,16 +67,16 @@
     			</div>
     			<div class="form-group">
     				<label for="kewarganegaraan">Kewarganegaraan</label>
-    				<select class="form-control" type="text" name="kewarganegaraan" required="true" th:field="*{kewarganegaraan}"> <!--  --> 
-    				<option selected="true" disabled="disabled" th:value="${penduduk.kewarganegaraan}"></option> <!-- -->
+    				<select class="form-control" type="text" name="kewarganegaraan" required="true" th:value="*{kewarganegaraan}"> <!--  --> 
+    				<option selected="true" disabled="disabled" th:value="${penduduk.kewarganegaraan}" th:text="${penduduk.kewarganegaraan} == 0 ? 'WNA' : 'WNI' "></option> <!-- -->
 	    				<option th:value="'1'">WNI</option>
 	    				<option th:value="'0'">WNA</option>
     				</select>
     			</div>
     			<div class="form-group">
     				<label for="statusKematian">Status Kematian</label>
-    				<select class="form-control" type="text" name="statusKematian" required="true" th:field="*{statusKematian}"> <!--  --> 
-    				<option selected="true" disabled="disabled" th:value="${penduduk.statusKematian}"></option> <!-- th:value=" '' " -->
+    				<select class="form-control" type="text" name="statusKematian" required="true" th:value="*{statusKematian}"> <!--  --> 
+    				<option selected="true" disabled="disabled" th:value="${penduduk.statusKematian}" th:text="${penduduk.statusKematian} == 0 ? 'Hidup' : 'Wafat' "></option> <!-- th:value=" '' " -->
 	    				<option th:value="'1'">Wafat</option>
 	    				<option th:value="'0'">Hidup</option>
     				</select>
@@ -84,7 +84,7 @@
     			<div class="form-group">
     				<label for="jenisKelamin">Jenis Kelamin</label>
     				<select class="form-control" type="text" name="jenisKelamin" required="true" th:field="*{jenisKelamin}" > <!--  --> 
-    				<option selected="true" disabled="disabled" th:value="${penduduk.jenisKelamin}"></option> <!-- th:value=" '' " -->
+    				<option selected="true" disabled="disabled" th:value="${penduduk.jenisKelamin}" th:text="${penduduk.jenisKelamin} == 0 ? 'Laki-laki' : 'Perempuan' "></option> <!-- th:value=" '' " -->
 	    				<option th:value="'1'">Perempuan</option>
 	    				<option th:value="'0'">Laki-laki</option>
     				</select>

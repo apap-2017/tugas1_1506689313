@@ -38,7 +38,7 @@ public class SidukController
 						
 		if (penduduk != null) {
 			KeluargaModel keluarga = keluargaDAO.selectKeluargabyID(penduduk.getIdKeluarga());
-			pendudukDAO.updateStatusKematian(penduduk);
+//			pendudukDAO.updateStatusKematian(penduduk);
 			model.addAttribute("penduduk", penduduk);
 			model.addAttribute("keluarga", keluarga);
 			return "view-penduduk";
@@ -122,5 +122,56 @@ public class SidukController
     		model.addAttribute("nik", nik);
     		return "not-found";
     	}
-    }    
+    }
+    
+    @RequestMapping("/keluarga/tambah")
+    public String addKeluarga(Model model) {
+    	
+    	return "tambah-keluarga";
+    }
+    
+    @RequestMapping(value="/keluarga/tambah", method = RequestMethod.POST)
+    public String addKeluarga(Model model, @ModelAttribute KeluargaModel keluarga) {
+    	KeluargaModel new_keluarga = keluargaDAO.addKeluarga(keluarga);
+    	
+    	if(new_keluarga != null) {
+    		model.addAttribute("nkk_tambah", new_keluarga.getNkk());
+    		return "success";
+    	}
+    	else {
+    		model.addAttribute("id_keluarga", keluarga.getIdKeluarga());
+    		return "not-found";
+    	}    	
+    }
+    
+    @RequestMapping("keluarga/ubah/{nkk}")
+    public String updateKeluarga(Model model, @PathVariable(value="nkk") String nkk) {
+    	KeluargaModel keluarga = keluargaDAO.selectKeluargabyNKK(nkk);
+    	
+    	if(keluarga != null) {
+    		model.addAttribute("keluarga", keluarga);
+    		return "update-keluarga";
+    	}
+    	else {
+    		model.addAttribute("nkk", nkk);
+    		return "not-found";
+    	}
+    }
+    
+    @RequestMapping(value = "keluarga/ubah/{nkk}", method = RequestMethod.POST)
+    public String updateKeluargaSubmit(Model model, @PathVariable(value="nkk") String nkk) {
+    	KeluargaModel keluarga = keluargaDAO.selectKeluargabyNKK(nkk);
+    	
+    	if(keluarga != null) {
+    		keluargaDAO.updateKeluarga(keluarga);
+    		model.addAttribute("nkk_lama", nkk);
+    		
+    		return "success";
+    	}
+    	else {
+    		model.addAttribute("nkk", nkk);
+    		return "not-found";
+    	}
+    }
+    
 }

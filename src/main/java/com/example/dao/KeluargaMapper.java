@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -42,4 +43,25 @@ public interface KeluargaMapper {
     
     @Update("UPDATE keluarga SET is_tidak_berlaku = '1' WHERE id = #{id}")
     void updateStatusBerlaku(@Param("id") int id);
+    
+    @Insert("insert into keluarga (nomor_kk, alamat, RT, RW, id_kelurahan, is_tidak_berlaku) values "
+    		+ "('${nkk}', '${alamat}', '${rt}', '${rw}', '${idKelurahan}', '${isTidakBerlaku}' ) ")
+    void addKeluarga(KeluargaModel keluarga);
+
+    @Select("select kode_kecamatan from kecamatan where kecamatan.id = #{idKecamatan}")
+    String selectKodeKecamatan(String idKecamatan);
+    
+    @Select("select id from kecamatan where lower(nama_kecamatan) = #{kecamatan}")
+    String selectIDKecamatan(String namaKecamatan);
+    
+    @Select("select id from kelurahan where lower(nama_kelurahan) = #{kelurahan}")
+    String selectIDKelurahan(String namaKelurahan);
+    
+    @Select("select * from keluarga where nomor_kk LIKE CONCAT(#{nkk},'%') order by nomor_kk desc limit 1")
+    KeluargaModel getNKKBefore(String nkk);
+    
+    @Update("update keluarga set nomor_kk = '${keluarga.nkk}', alamat = '${keluarga.alamat}', RT = '${keluarga.rt}', RW = '${keluarga.rw}', "
+    		+ "id_kelurahan = '${keluarga.idKelurahan}', is_tidak_berlaku = '${keluarga.isTidakBerlaku}' where id = #{id}")
+    void updateKeluarga(@Param("keluarga") KeluargaModel keluarga, @Param("id") int id);
+    
 }

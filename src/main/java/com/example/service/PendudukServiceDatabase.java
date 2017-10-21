@@ -84,16 +84,23 @@ public class PendudukServiceDatabase implements PendudukService
     	
     	PendudukModel pendudukDouble = pendudukMapper.getNIKBefore(nik);
     	
+//    	log.info("id penduduk double {}", pendudukDouble.getNik());
+//    	log.info("id penduduk biasa {}", penduduk.getNik());
+
     	//no duplicate
     	if(pendudukDouble == null) {
     		nik+= "0001";
     		log.info("NIK {} is generated", nik);
     	}
+    	else if(!penduduk.getNik().isEmpty()) {
+    		nik = penduduk.getNik();
+    		log.info("no changes in nik {}", nik);
+    	}
     	else {
     		log.info("nik yang mirip {}", pendudukDouble.getNik());
     		long nikDouble = Long.parseLong(pendudukDouble.getNik()) + 1;
     		nik = String.valueOf(nikDouble);
-    		log.info("NIK {} is generated", nik);
+    		log.info("Incremental NIK {} is generated", nik);
     	}
     	return nik;
     }
@@ -101,6 +108,16 @@ public class PendudukServiceDatabase implements PendudukService
     @Override
     public void updatePenduduk(PendudukModel penduduk) {
     	log.info("update penduduk with nik {}", penduduk.getNik());
-    	pendudukMapper.updatePenduduk(penduduk);
+    	
+    	PendudukModel pendudukLama = pendudukMapper.selectPenduduk(penduduk.getNik());
+    	String id = pendudukLama.getId();
+    	
+    	penduduk.setNik(generateNIK(pendudukLama));
+//    	penduduk.setId(pendudukLama.getId());
+    	
+    	log.info("id penduduk {}", id);
+    	log.info("nik penduduk {}", penduduk.getNik());
+    	
+    	pendudukMapper.updatePenduduk(penduduk, id);
     }
 }
