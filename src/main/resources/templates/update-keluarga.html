@@ -9,37 +9,41 @@
 		<div class="container-fluid col-sm-4">
 			<h1 class="page-header">Ubah Keluarga</h1>
 		
+			<!--  coba ga pake th field -->
 			<form th:action="'/keluarga/ubah/' + ${keluarga.nkk}" method="post" th:object="${keluarga}"> 
 				<div class="form-group">
+		    		<input class="form-control" type="hidden" name="idKeluarga" required="true" th:value="${keluarga.idKeluarga}" readonly="readonly"></input>  
+		    	</div>
+				<div class="form-group">
 		    		<label for="nkk">NKK</label>
-		    		<input class="form-control" type="text" name="nkk" required="true" th:field="*{nkk}" th:value="${keluarga.nkk}" readonly="readonly"></input>  
+		    		<input class="form-control" type="text" name="nkk" required="true" th:value="${keluarga.nkk}" readonly="readonly"></input>  
 		    	</div>
 				<div class="form-group">
 	    			<label for="alamat">Alamat</label>
-	    			<input class="form-control" type="text" name="alamat" required="true" th:field="*{alamat}" th:value="${keluarga.alamat}"></input>   
+	    			<input class="form-control" type="text" name="alamat" required="true"  th:value="${keluarga.alamat}"></input>   
 	    		</div>
 				<div class="form-group">
 	    			<label for="rt">RT</label>
-	    			<input class="form-control" type="text" name="rt" required="true" th:field="*{rt}" th:value="${keluarga.rt}"></input>  
+	    			<input class="form-control" type="text" name="rt" required="true"  th:value="${keluarga.rt}"></input>  
 	    		</div>
 	    		<div class="form-group">
 	    			<label for="rw">RW</label>
-	    			<input class="form-control" type="text" name="rw" required="true" th:field="*{rw}" th:value="${keluarga.rw}"></input>  
+	    			<input class="form-control" type="text" name="rw" required="true" th:value="${keluarga.rw}"></input>  
 	    		</div>
 				<div class="form-group">
 	    			<label for="kelurahan">Kelurahan/Desa (Gunakan huruf kecil)</label>
-	    			<input class="form-control" type="text" name="kelurahan" required="true" th:field="*{kelurahan}" th:value="${keluarga.kelurahan}"></input>  
+	    			<input class="form-control" type="text" name="kelurahan" required="true" th:value="${keluarga.kelurahan}"></input>  
 	    		</div>
 				<div class="form-group">
 	    			<label for="kecamatan">Kecamatan (Gunakan huruf kecil)</label>
-	    			<input class="form-control" type="text" name="kecamatan" required="true" th:field="*{kecamatan}" th:value="${keluarga.kecamatan}"></input>  
+	    			<input class="form-control" type="text" name="kecamatan" required="true" th:value="${keluarga.kecamatan}"></input>  
 	    		</div>
 				<div class="form-group">
 	    			<label for="kota">Kota (Gunakan huruf kecil)</label>
-	    			<input class="form-control" type="text" name="kota" required="true" th:field="*{kota}" th:value="${keluarga.kota}"></input>  
+	    			<input class="form-control" type="text" name="kota" required="true" th:value="${keluarga.kota}"></input>  
 	    		</div>
 				<div>
-					<button class="btn btn-primary" type="submit" name="action" value="save">Simpan</button>
+					<button class="btn btn-primary" type="submit"  name="action" value="save" >Simpan</button>
 				</div>
 			</form>
 			<br/>

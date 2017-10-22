@@ -74,6 +74,8 @@ public class PendudukServiceDatabase implements PendudukService
     	
     	KeluargaModel keluarga = keluargaMapper.selectKeluargabyID(penduduk.getIdKeluarga());
     	
+    	log.info("id keluarga {}", String.valueOf(penduduk.getIdKeluarga()));
+    	
     	String[] splitTanggal = penduduk.getTanggalLahir().split("-");
     	//6 digit pertama bisa ambil dari nomor kk 
     	nik += keluarga.getNkk().substring(0,6);
@@ -82,22 +84,19 @@ public class PendudukServiceDatabase implements PendudukService
     	//bulan + tahun
     	nik += splitTanggal[1] + splitTanggal[0].substring(2);
     	
+    	log.info("digit nik {}",nik);
+    	
     	PendudukModel pendudukDouble = pendudukMapper.getNIKBefore(nik);
     	
-//    	log.info("id penduduk double {}", pendudukDouble.getNik());
-//    	log.info("id penduduk biasa {}", penduduk.getNik());
-
+    	log.info("nik yang mirip {}", pendudukDouble.getNik());
+    	
     	//no duplicate
-    	if(pendudukDouble == null) {
+    	if(pendudukDouble == null || penduduk.getNik().equals(pendudukDouble.getNik())) {
     		nik+= "0001";
     		log.info("NIK {} is generated", nik);
     	}
-    	else if(!penduduk.getNik().isEmpty()) {
-    		nik = penduduk.getNik();
-    		log.info("no changes in nik {}", nik);
-    	}
     	else {
-    		log.info("nik yang mirip {}", pendudukDouble.getNik());
+    		
     		long nikDouble = Long.parseLong(pendudukDouble.getNik()) + 1;
     		nik = String.valueOf(nikDouble);
     		log.info("Incremental NIK {} is generated", nik);
@@ -113,11 +112,14 @@ public class PendudukServiceDatabase implements PendudukService
     	String id = pendudukLama.getId();
     	
     	penduduk.setNik(generateNIK(pendudukLama));
-//    	penduduk.setId(pendudukLama.getId());
+    	penduduk.setId(id);
+    	penduduk.setGoldar(pendudukLama.getGoldar());
+    	penduduk.setJenisKelamin(pendudukLama.getJenisKelamin());
+    	penduduk.setKewarganegaraan(pendudukLama.getKewarganegaraan());
     	
     	log.info("id penduduk {}", id);
     	log.info("nik penduduk {}", penduduk.getNik());
     	
-    	pendudukMapper.updatePenduduk(penduduk, id);
+    	pendudukMapper.updatePenduduk(penduduk);
     }
 }

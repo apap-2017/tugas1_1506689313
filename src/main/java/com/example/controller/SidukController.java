@@ -38,7 +38,6 @@ public class SidukController
 						
 		if (penduduk != null) {
 			KeluargaModel keluarga = keluargaDAO.selectKeluargabyID(penduduk.getIdKeluarga());
-//			pendudukDAO.updateStatusKematian(penduduk);
 			model.addAttribute("penduduk", penduduk);
 			model.addAttribute("keluarga", keluarga);
 			return "view-penduduk";
@@ -109,19 +108,11 @@ public class SidukController
     }
     
     @RequestMapping(value = "penduduk/ubah/{nik}", method = RequestMethod.POST)
-    public String updatePendudukSubmit(Model model, @PathVariable(value="nik") String nik) {
-    	PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
-    	
-    	if(penduduk != null) {
-    		pendudukDAO.updatePenduduk(penduduk);
-    		model.addAttribute("nik_lama", nik);
-    		
-    		return "success";
-    	}
-    	else {
-    		model.addAttribute("nik", nik);
-    		return "not-found";
-    	}
+    public String updatePendudukSubmit(Model model, @ModelAttribute PendudukModel penduduk, @PathVariable(value="nik") String nik) {
+    	pendudukDAO.selectPenduduk(nik);
+    	pendudukDAO.updatePenduduk(penduduk);
+    	model.addAttribute("nik_lama", nik);
+    	return "success";
     }
     
     @RequestMapping("/keluarga/tambah")
@@ -159,19 +150,11 @@ public class SidukController
     }
     
     @RequestMapping(value = "keluarga/ubah/{nkk}", method = RequestMethod.POST)
-    public String updateKeluargaSubmit(Model model, @PathVariable(value="nkk") String nkk) {
-    	KeluargaModel keluarga = keluargaDAO.selectKeluargabyNKK(nkk);
-    	
-    	if(keluarga != null) {
-    		keluargaDAO.updateKeluarga(keluarga);
-    		model.addAttribute("nkk_lama", nkk);
-    		
-    		return "success";
-    	}
-    	else {
-    		model.addAttribute("nkk", nkk);
-    		return "not-found";
-    	}
+    public String updateKeluargaSubmit(Model model, @ModelAttribute KeluargaModel keluarga, @PathVariable(value="nkk") String nkk) {
+    	keluargaDAO.selectKeluargabyNKK(nkk);
+    	keluargaDAO.updateKeluarga(keluarga);
+    	model.addAttribute("nkk_lama", nkk);
+    	return "success";
     }
     
 }

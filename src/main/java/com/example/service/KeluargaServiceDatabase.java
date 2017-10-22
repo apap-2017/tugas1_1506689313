@@ -71,6 +71,9 @@ public class KeluargaServiceDatabase implements KeluargaService{
     	nkk += kode_kecamatan.substring(0, kode_kecamatan.length()-1) + tgl + bulan + tahun;
     	
     	log.info("12 digit nkk = {}", nkk);
+    	log.info("id kecamatan {}", id_kecamatan);
+    	log.info("kode_kecamatan {}", kode_kecamatan);
+    	
     	
     	//check duplicate
     	KeluargaModel keluargaDouble = keluargaMapper.getNKKBefore(nkk);
@@ -98,10 +101,19 @@ public class KeluargaServiceDatabase implements KeluargaService{
     	log.info("keluarga with nkk {} is updated", keluarga.getNkk());
     	
     	KeluargaModel keluargaLama = keluargaMapper.selectKeluargabyNKK(keluarga.getNkk());
-    	int id = keluargaLama.getIdKeluarga();
     	
-    	keluarga.setNkk(generateNKK(keluargaLama, keluargaLama.getKecamatan()));
-    
-    	keluargaMapper.updateKeluarga(keluarga, id);
+    	//get id kelurahan
+    	String idKelurahan = keluargaMapper.selectIDKelurahan(keluarga.getKelurahan());
+    	
+    	log.info("ini id kelurahan {}", idKelurahan);
+    	
+    	String nkkbaru = generateNKK(keluargaLama, keluargaLama.getKecamatan());
+    	keluarga.setNkk(nkkbaru);
+    	keluarga.setIdKelurahan(idKelurahan);
+    	
+    	log.info("id kel baru = {}", keluarga.getIdKeluarga());
+    	log.info("nkk baru = {}", keluarga.getNkk());
+    	
+    	keluargaMapper.updateKeluarga(keluarga);
     }
 }
