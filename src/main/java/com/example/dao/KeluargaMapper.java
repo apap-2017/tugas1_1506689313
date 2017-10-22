@@ -57,8 +57,8 @@ public interface KeluargaMapper {
     @Select("select id from kelurahan where lower(nama_kelurahan) = #{kelurahan}")
     String selectIDKelurahan(String namaKelurahan);
     
-    @Select("select * from keluarga where nomor_kk LIKE CONCAT(#{nkk},'%') order by nomor_kk desc limit 1")
-    KeluargaModel getNKKBefore(String nkk);
+    @Select("select * from keluarga where nomor_kk LIKE CONCAT(#{nomor_kk},'%') order by nomor_kk desc limit 1")
+    KeluargaModel getNKKBefore(String nomor_kk);
     
     @Update("update keluarga set nomor_kk = '${keluarga.nkk}' , alamat = '${keluarga.alamat}', RT = '${keluarga.rt}', RW = '${keluarga.rw}', "
     		+ "id_kelurahan = '${keluarga.idKelurahan}', is_tidak_berlaku = '${keluarga.isTidakBerlaku}' "
