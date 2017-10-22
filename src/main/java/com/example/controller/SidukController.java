@@ -81,16 +81,9 @@ public class SidukController
     
     @RequestMapping(value="/penduduk/tambah", method = RequestMethod.POST)
     public String addPenduduk(Model model, @ModelAttribute PendudukModel penduduk) {
-    	PendudukModel new_penduduk = pendudukDAO.addPenduduk(penduduk);
-    	
-    	if(new_penduduk != null) {
-    		model.addAttribute("nik_tambah", new_penduduk.getNik());
-    		return "success";
-    	}
-    	else {
-    		model.addAttribute("id_keluarga", penduduk.getIdKeluarga());
-    		return "not-found";
-    	}    	
+    	pendudukDAO.addPenduduk(penduduk);
+    	model.addAttribute("nik_tambah", penduduk.getNik());
+    	return "success";    	
     }
     
     @RequestMapping("penduduk/ubah/{nik}")
@@ -117,22 +110,14 @@ public class SidukController
     
     @RequestMapping("/keluarga/tambah")
     public String addKeluarga(Model model) {
-    	
     	return "tambah-keluarga";
     }
     
     @RequestMapping(value="/keluarga/tambah", method = RequestMethod.POST)
     public String addKeluarga(Model model, @ModelAttribute KeluargaModel keluarga) {
-    	KeluargaModel new_keluarga = keluargaDAO.addKeluarga(keluarga);
-    	
-    	if(new_keluarga != null) {
-    		model.addAttribute("nkk_tambah", new_keluarga.getNkk());
-    		return "success";
-    	}
-    	else {
-    		model.addAttribute("id_keluarga", keluarga.getIdKeluarga());
-    		return "not-found";
-    	}    	
+    	keluargaDAO.addKeluarga(keluarga);
+    	model.addAttribute("nkk_tambah", keluarga.getNkk());
+    	return "success";  
     }
     
     @RequestMapping("keluarga/ubah/{nkk}")

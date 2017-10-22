@@ -60,10 +60,6 @@ public interface KeluargaMapper {
     @Select("select * from keluarga where nomor_kk LIKE CONCAT(#{nkk},'%') order by nomor_kk desc limit 1")
     KeluargaModel getNKKBefore(String nkk);
     
-//    @Update("update keluarga set nomor_kk = #{nkk} , alamat = #{alamat} , RT = #{rt}, RW = #{rw}, "
-//    		+ "id_kelurahan = #{idKelurahan}, is_tidak_berlaku = #{isTidakBerlaku} where id = ${keluarga.idKeluarga} ")
-//    void updateKeluarga(@Param("keluarga") KeluargaModel keluarga);
-    
     @Update("update keluarga set nomor_kk = '${keluarga.nkk}' , alamat = '${keluarga.alamat}', RT = '${keluarga.rt}', RW = '${keluarga.rw}', "
     		+ "id_kelurahan = '${keluarga.idKelurahan}', is_tidak_berlaku = '${keluarga.isTidakBerlaku}' "
     		+ "where id = '${keluarga.idKeluarga}' ")

@@ -38,61 +38,50 @@ public class KeluargaServiceDatabase implements KeluargaService{
     
     @Override
     public KeluargaModel addKeluarga(KeluargaModel keluarga) {
-    	log.info("nama kecamatan {}", keluarga.getKecamatan());
-    	
-    	keluarga.setNkk(generateNKK(keluarga, keluarga.getKecamatan()));
     	log.info("keluarga with nkk {} is added", keluarga.getNkk());
     	
+    	keluarga.setNkk(generateNKK(keluarga));
     	keluarga.setIsTidakBerlaku(0);
+    	keluarga.setIdKelurahan(keluargaMapper.selectIDKelurahan(keluarga.getKelurahan()));
     	keluargaMapper.addKeluarga(keluarga);
     	
     	return keluarga;
     }
     
-    private String generateNKK(KeluargaModel keluarga, String namaKecamatan) {
+    private String generateNKK(KeluargaModel keluarga) {
+    	String nkk="";
+    	
     	String tanggalRilis = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     	String[] tanggalSplit = tanggalRilis.split("-");
     	
     	String tahun = tanggalSplit[0].substring(2);
     	String bulan = tanggalSplit[1];
     	String tgl = tanggalSplit[2];
-    	
-    	String nkk="";
-    	
-    	//set id kelurahan
-    	String id_kelurahan = keluargaMapper.selectIDKelurahan(keluarga.getKelurahan());
-    	keluarga.setIdKelurahan(id_kelurahan);
-    	
+    		
     	//cari kode kecamatan
     	String id_kecamatan = keluargaMapper.selectIDKecamatan(keluarga.getKecamatan());
     	String kode_kecamatan = keluargaMapper.selectKodeKecamatan(id_kecamatan);
     	
     	//concat nkk
-    	nkk += kode_kecamatan.substring(0, kode_kecamatan.length()-1) + tgl + bulan + tahun;
-    	
-    	log.info("12 digit nkk = {}", nkk);
-    	log.info("id kecamatan {}", id_kecamatan);
-    	log.info("kode_kecamatan {}", kode_kecamatan);
-    	
+    	nkk += kode_kecamatan.substring(0, 6) + tgl + bulan + tahun + "";
     	
     	//check duplicate
     	KeluargaModel keluargaDouble = keluargaMapper.getNKKBefore(nkk);
+    	
+    	log.info("digit nkk {}",nkk);
+    	log.info("nkk keluarga double {}", keluargaDouble.getNkk());
     	
     	if(keluargaDouble == null) {
     		nkk += "0001";
     		log.info("new nkk {} is generated", nkk);
     	}
-    	else if(!keluarga.getNkk().isEmpty()) {
-    		nkk = keluarga.getNkk();
-    		log.info("no changes in nkk {}", nkk);
-    	}
     	else {
     		log.info("nkk yang mirip {}", keluargaDouble.getNkk());
+    		
     		long nkkDouble = Long.parseLong(keluargaDouble.getNkk()) + 1;
-    		nkk = String.valueOf(nkkDouble);
+    		nkk = "" + nkkDouble;
     		log.info("incremental nkk {} is generated", nkk);
     	}
-    	
     	return nkk;	
     }
     
@@ -107,7 +96,7 @@ public class KeluargaServiceDatabase implements KeluargaService{
     	
     	log.info("ini id kelurahan {}", idKelurahan);
     	
-    	String nkkbaru = generateNKK(keluargaLama, keluargaLama.getKecamatan());
+    	String nkkbaru = generateNKK(keluargaLama);
     	keluarga.setNkk(nkkbaru);
     	keluarga.setIdKelurahan(idKelurahan);
     	

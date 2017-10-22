@@ -88,17 +88,19 @@ public class PendudukServiceDatabase implements PendudukService
     	
     	PendudukModel pendudukDouble = pendudukMapper.getNIKBefore(nik);
     	
-    	log.info("nik yang mirip {}", pendudukDouble.getNik());
+    	log.info("nik penduduk double ", pendudukDouble.getNik());
     	
     	//no duplicate
-    	if(pendudukDouble == null || penduduk.getNik().equals(pendudukDouble.getNik())) {
+    	if(pendudukDouble == null) {
     		nik+= "0001";
     		log.info("NIK {} is generated", nik);
     	}
     	else {
+    		log.info("nik yang mirip {}", pendudukDouble.getNik());
     		
     		long nikDouble = Long.parseLong(pendudukDouble.getNik()) + 1;
-    		nik = String.valueOf(nikDouble);
+    		nik = "" + nikDouble;
+    		
     		log.info("Incremental NIK {} is generated", nik);
     	}
     	return nik;
